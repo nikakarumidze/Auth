@@ -1,10 +1,14 @@
 import { Grid } from '@mui/material';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store';
 
 const User = () => {
+  const auth = useSelector((state: RootState) => state.auth);
+
   return (
     <Grid container>
-      <Grid item>Hello</Grid>
-      <Grid item>Your email:</Grid>
+      <Grid item>zd</Grid>
+      <Grid item>{auth.name}</Grid>
     </Grid>
   );
 };
