@@ -36,14 +36,11 @@ export default function Header() {
         <SearchIcon />
       </IconButton>
       <Button variant='outlined' size='small'>
-        <Link
-          component={RouterLink}
-          to='/Login'
-          onClick={() => hasToken && dispatch(logOut())}
-        >
-          {hasToken ? 'Log Out' : 'Log In'}
+        <Link component={RouterLink} to='/signIn'>
+          Log In
         </Link>
       </Button>
     </Toolbar>
   );
 }
+>>>>>>> Stashed changes

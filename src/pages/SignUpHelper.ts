@@ -23,6 +23,7 @@ export default async function signUpHelper(
     minLength: 8,
     minUppercase: 1,
     minNumbers: 1,
+    minSymbols: 0,
   });
 
   setFormState({

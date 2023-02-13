@@ -2,13 +2,15 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import Header from './components/Header';
-import User from './pages/User';
 import type { RootState } from './store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
 import ErrorPage from './pages/ErrorPage';
 import { applyToken } from './store/auth';
+import { lazy, Suspense } from 'react';
+
+const User = lazy(() => import('./pages/User'));
 
 export default function App() {
   const { hasToken } = useSelector((state: RootState) => state.auth);
@@ -48,16 +50,18 @@ export default function App() {
   return (
     <>
       <Header />
-      <Routes>
-        {hasToken && <Route path='/user' element={<User />} />}
-        {!hasToken && (
-          <>
-            <Route path='/Login' element={<LogIn />} />
-            <Route path='/SignUp' element={<SignUp />} />
-          </>
-        )}
-        <Route path='*' element={<ErrorPage />} />
-      </Routes>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          {hasToken && <Route path='/user' element={<User />} />}
+          {!hasToken && (
+            <>
+              <Route path='/Login' element={<LogIn />} />
+              <Route path='/SignUp' element={<SignUp />} />
+            </>
+          )}
+          <Route path='*' element={<ErrorPage />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }
